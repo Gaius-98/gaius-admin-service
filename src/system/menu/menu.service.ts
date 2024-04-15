@@ -63,13 +63,7 @@ export class MenuService {
 
   async update(updateMenuDto: UpdateMenuDto) {
     try {
-      const menu = await this.menuRepository.findOne({
-        where: { id: updateMenuDto.id },
-      });
-      return await this.menuRepository.save({
-        ...menu,
-        updateMenuDto,
-      });
+      return await this.menuRepository.save(updateMenuDto);
     } catch (error) {
       throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
@@ -103,7 +97,13 @@ export class MenuService {
   buildMenuTree(menuList: MenuItem[], parentId: string | null) {
     const tree: MenuItem[] = [];
     menuList
-      .filter((menu) => menu.pid === parentId)
+      .filter((menu) => {
+        if (!parentId) {
+          return !menu.pid;
+        } else {
+          return menu.pid === parentId;
+        }
+      })
       .forEach((menu) => {
         const children = this.buildMenuTree(menuList, menu.id);
         if (children.length > 0) {

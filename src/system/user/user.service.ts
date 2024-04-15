@@ -86,13 +86,7 @@ export class UserService {
   }
   async update(updateUserDto: UpdateUserDto) {
     try {
-      const user = await this.userRepository.findOne({
-        where: { username: updateUserDto.username },
-      });
-      return await this.userRepository.save({
-        ...user,
-        updateUserDto,
-      });
+      return await this.userRepository.save(updateUserDto);
     } catch (error) {
       throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
