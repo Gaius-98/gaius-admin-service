@@ -49,7 +49,7 @@ export class UserService {
         skip: pageNumber - 1,
         take: pageSize,
         where: {
-          username: Like(keyword),
+          username: Like(`%${keyword}%`),
         },
         order: {
           createTime: 'ASC',

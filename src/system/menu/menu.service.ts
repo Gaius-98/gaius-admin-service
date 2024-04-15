@@ -45,7 +45,11 @@ export class MenuService {
           sortNum: 'ASC',
         },
       });
-      return this.buildMenuTree(menuList as MenuItem[], null) as Menu[];
+      if (keyword) {
+        return menuList;
+      } else {
+        return this.buildMenuTree(menuList as MenuItem[], null) as Menu[];
+      }
     } catch (error) {
       throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
