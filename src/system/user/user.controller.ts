@@ -27,11 +27,11 @@ export class UserController {
     return this.userService.getUserInfo(username);
   }
   @Post('update')
-  updateUser(@Body() updateUserDto: UpdateUserDto) {
+  update(@Body() updateUserDto: UpdateUserDto) {
     return this.userService.update(updateUserDto);
   }
-  @Get('delete')
-  deleteUser(@Query('username') username: string) {
+  @Get('remove')
+  remove(@Query('username') username: string) {
     return this.userService.remove(username);
   }
   @Get('list')

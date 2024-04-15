@@ -74,12 +74,12 @@ export class MenuService {
   }
 
   async remove(id: string) {
-    const user = await this.menuRepository.findOne({
+    const menu = await this.menuRepository.findOne({
       where: { id },
     });
-    if (!user)
+    if (!menu)
       throw new ApiException(`菜单不存在,删除失败`, ApiErrorCode.ERROR_OTHER);
-    await this.menuRepository.remove(user);
+    await this.menuRepository.remove(menu);
     return `删除菜单成功`;
   }
   async findAllDirectory() {

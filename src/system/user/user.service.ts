@@ -36,7 +36,7 @@ export class UserService {
   async findAll(params: SearchUserDto) {
     const { pageNumber, pageSize, keyword } = params;
     try {
-      return await this.userRepository.findAndCount({
+      const userList = await this.userRepository.findAndCount({
         select: [
           'avatar',
           'email',
@@ -45,6 +45,7 @@ export class UserService {
           'role',
           'salt',
           'createTime',
+          'id',
         ],
         skip: pageNumber - 1,
         take: pageSize,
@@ -55,6 +56,10 @@ export class UserService {
           createTime: 'ASC',
         },
       });
+      return {
+        data: userList[0],
+        total: userList[1],
+      };
     } catch (error) {
       throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
@@ -71,6 +76,7 @@ export class UserService {
         'salt',
         'createTime',
         'password',
+        'id',
       ],
       where: { username },
     });
@@ -101,6 +107,7 @@ export class UserService {
         `用户[${username}]不存在,删除失败`,
         ApiErrorCode.ERROR_OTHER,
       );
+    await this.userRepository.remove(user);
     return `删除用户[${username}]成功`;
   }
 }
