@@ -1,42 +1,42 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Patch,
-  Param,
-  Delete,
-} from '@nestjs/common';
+import { Controller, Get, Post, Body, Query } from '@nestjs/common';
 import { DictService } from './dict.service';
 import { CreateDictDto } from './dto/create-dict.dto';
 import { UpdateDictDto } from './dto/update-dict.dto';
-
+import { SearchDictDto } from './dto/search-dict.dto';
 @Controller('dict')
 export class DictController {
   constructor(private readonly dictService: DictService) {}
 
-  @Post()
+  @Post('add')
   create(@Body() createDictDto: CreateDictDto) {
     return this.dictService.create(createDictDto);
   }
 
-  @Get()
-  findAll() {
-    return this.dictService.findAll();
+  @Get('list')
+  findAll(params: SearchDictDto) {
+    return this.dictService.findAll(params);
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.dictService.findOne(+id);
+  @Get('detail')
+  findOne(@Query('id') id: string) {
+    return this.dictService.findOne(id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateDictDto: UpdateDictDto) {
-    return this.dictService.update(+id, updateDictDto);
+  @Post('update')
+  update(@Body() updateDictDto: UpdateDictDto) {
+    return this.dictService.update(updateDictDto);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.dictService.remove(+id);
+  @Get('remove')
+  remove(@Query('id') id: string) {
+    return this.dictService.remove(id);
+  }
+  @Get('dictByType')
+  findByType(@Query('dictType') dictTypes: string[]) {
+    return this.dictService.findByTypes(dictTypes);
+  }
+  @Get('dictTypeList')
+  findDictTypeList() {
+    return this.dictService.findAllDirectory();
   }
 }

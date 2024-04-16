@@ -1,4 +1,7 @@
 import { PartialType } from '@nestjs/mapped-types';
 import { CreateDictDto } from './create-dict.dto';
 
-export class UpdateDictDto extends PartialType(CreateDictDto) {}
+export class UpdateDictDto extends PartialType(CreateDictDto) {
+  id: string;
+  status: number;
+}
