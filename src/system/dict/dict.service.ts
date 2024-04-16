@@ -4,7 +4,7 @@ import { UpdateDictDto } from './dto/update-dict.dto';
 import { HttpException, HttpStatus } from '@nestjs/common';
 import { Dict } from './entities/dict.entity';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Like, Repository, In } from 'typeorm';
+import { Like, Repository, In, QueryBuilder } from 'typeorm';
 import { ApiErrorCode } from 'src/common/model/IHttp';
 import { ApiException } from 'src/common/filter/http-exception/api.exception';
 import { SearchDictDto } from './dto/search-dict.dto';
@@ -32,10 +32,10 @@ export class DictService {
         take: pageSize,
         where: {
           label: Like(`%${keyword}%`),
-          dictType,
+          dictType: dictType || null,
         },
         order: {
-          sortNum: 'ASC',
+          dictType: 'ASC',
         },
       });
       return {
@@ -76,15 +76,12 @@ export class DictService {
   }
   async findAllDirectory() {
     try {
-      const dictList = await this.dictRepository.find({
-        select: ['dictType', 'dictTypeDesc'],
-        where: {
-          dictType: 'directory',
-        },
-        order: {
-          sortNum: 'ASC',
-        },
-      });
+      const dictList = await this.dictRepository
+        .createQueryBuilder('dict')
+        .select('dict.dictType')
+        .addSelect('dict.dictTypeDesc')
+        .groupBy('dict.dictType')
+        .getMany();
       return dictList;
     } catch (error) {
       throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -96,6 +93,7 @@ export class DictService {
         select: ['label', 'id'],
         where: {
           dictType: In(dictTypes),
+          status: 1,
         },
         order: {
           sortNum: 'ASC',

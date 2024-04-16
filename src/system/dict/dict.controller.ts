@@ -13,7 +13,7 @@ export class DictController {
   }
 
   @Get('list')
-  findAll(params: SearchDictDto) {
+  findAll(@Query() params: SearchDictDto) {
     return this.dictService.findAll(params);
   }
 

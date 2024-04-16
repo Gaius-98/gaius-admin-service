@@ -9,7 +9,7 @@ export class Dict {
   value: string;
   @Column({ name: 'sort_num' })
   sortNum: number;
-  @Column()
+  @Column({ nullable: true })
   desc: string;
   @Column({ name: 'dict_type' })
   dictType: string;
