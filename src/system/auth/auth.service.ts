@@ -17,7 +17,6 @@ export class AuthService {
   async login(loginAuthDto: LoginAuthDto, captchaCode: string) {
     const { username, password, captcha } = loginAuthDto;
     const user = await this.userSrv.findOne(username);
-    console.log(captchaCode, captcha);
     if (captchaCode == captcha) {
       if (user) {
         const { salt, password: realPassword } = user;
