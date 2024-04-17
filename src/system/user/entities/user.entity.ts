@@ -10,8 +10,8 @@ export class User {
   password: string;
   @Column({ nullable: true })
   email: string;
-  @Column({ nullable: true })
-  role: string;
+  @Column({ nullable: true, name: 'role_id' })
+  roleId: string;
   @Column({
     type: 'timestamp',
     default: () => 'CURRENT_TIMESTAMP',
@@ -24,6 +24,7 @@ export class User {
   avatar: string;
   @Column()
   salt: string;
+
   @BeforeInsert()
   beforeInsert() {
     this.salt = (Math.random() * 10000).toFixed(0);

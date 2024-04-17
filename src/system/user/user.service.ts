@@ -42,7 +42,7 @@ export class UserService {
           'email',
           'username',
           'name',
-          'role',
+          'roleId',
           'salt',
           'createTime',
           'id',
@@ -72,7 +72,7 @@ export class UserService {
         'email',
         'username',
         'name',
-        'role',
+        'roleId',
         'salt',
         'createTime',
         'password',
@@ -109,5 +109,13 @@ export class UserService {
       );
     await this.userRepository.remove(user);
     return `删除用户[${username}]成功`;
+  }
+  async getRoleIdByUser(username: string) {
+    const users = await this.userRepository.findOne({
+      where: { username },
+      relations: ['roleId', 'user.role'],
+    });
+
+    return users;
   }
 }
