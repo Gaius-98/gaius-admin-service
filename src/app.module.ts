@@ -13,6 +13,7 @@ import { DictModule } from './system/dict/dict.module';
 import * as path from 'path';
 import { TransformInterceptor } from './common/interceptor/transform/transform.interceptor';
 import { RoleModule } from './system/role/role.module';
+import { RequestModule } from './system/request/request.module';
 const env = process.env.NODE_ENV == 'production' ? 'prod' : 'dev';
 @Module({
   imports: [
@@ -51,6 +52,7 @@ const env = process.env.NODE_ENV == 'production' ? 'prod' : 'dev';
     MenuModule,
     DictModule,
     RoleModule,
+    RequestModule,
   ],
   controllers: [AppController],
   providers: [
