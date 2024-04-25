@@ -27,6 +27,7 @@ jobs:
           npm install
           npm run build
       - name: Depoly
+        uses: peaceiris/actions-gh-pages@v3 # 一个自动发布github pages的action
         with:
           publish_dir: ./dist
           github_token: ${{ secrets.GAIUS_TOKEN }}
