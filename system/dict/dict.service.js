@@ -101,7 +101,7 @@ let DictService = class DictService {
     async findByTypes(dictTypes) {
         try {
             const dictList = await this.dictRepository.find({
-                select: ['label', 'id'],
+                select: ['label', 'id', 'dictType'],
                 where: {
                     dictType: (0, typeorm_2.In)(dictTypes),
                     status: 1,
