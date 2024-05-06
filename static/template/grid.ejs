@@ -1,0 +1,10 @@
+<a-row
+:gutter="<%= data.gutter %>"
+>
+    <% data.children.forEach((item)=>{ %>
+        <a-col :span="<%=  24/data.colNumber %>">
+            <%- include(path+'/formItem',{list:item,path}) %>
+        </a-col>
+    <% }) %>
+</a-row>
+    

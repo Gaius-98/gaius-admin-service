@@ -15,6 +15,7 @@ import { TransformInterceptor } from './common/interceptor/transform/transform.i
 import { RoleModule } from './system/role/role.module';
 import { RequestModule } from './system/request/request.module';
 import { FormModule } from './system/form/form.module';
+import { ServeStaticModule } from '@nestjs/serve-static';
 const env = process.env.NODE_ENV == 'production' ? 'prod' : 'dev';
 @Module({
   imports: [
@@ -47,6 +48,10 @@ const env = process.env.NODE_ENV == 'production' ? 'prod' : 'dev';
           },
         };
       },
+    }),
+    ServeStaticModule.forRoot({
+      rootPath: path.join(__dirname, '..', './static'),
+      serveRoot: '/static',
     }),
     UserModule,
     AuthModule,

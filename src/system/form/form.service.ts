@@ -8,11 +8,16 @@ import { ApiErrorCode } from 'src/common/model/IHttp';
 import { ApiException } from 'src/common/filter/http-exception/api.exception';
 import { HttpException, HttpStatus } from '@nestjs/common';
 import PaginationDto from 'src/common/dto/pagination.dto';
+import { TemplateService } from 'src/common/template/TemplateService';
+import { FormatService } from 'src/common/format/FormatService';
+import * as path from 'path';
 @Injectable()
 export class FormService {
   constructor(
     @InjectRepository(Form)
     private formRepository: Repository<Form>,
+    private templateService: TemplateService,
+    private formatService: FormatService,
   ) {}
   async create(createFormDto: CreateFormDto) {
     const dict = await this.formRepository.create(createFormDto);
@@ -72,5 +77,172 @@ export class FormService {
       throw new ApiException(`表单不存在,删除失败`, ApiErrorCode.ERROR_OTHER);
     await this.formRepository.remove(form);
     return `删除表单成功`;
+  }
+  async getTemplate() {
+    const test = [
+      {
+        type: 'grid',
+        controlProp: {
+          gutter: 0,
+          colNumber: 2,
+          children: [
+            [
+              {
+                formItemProp: {
+                  label: 'field8809',
+                  name: 'field8809',
+                  required: false,
+                },
+                controlProp: {
+                  allowClear: true,
+                  bordered: true,
+                  disabled: false,
+                  maxlength: null,
+                  size: 'middle',
+                },
+                type: 'input',
+                id: '1714997238809',
+              },
+            ],
+            [
+              {
+                formItemProp: {
+                  label: 'field9678',
+                  name: 'field9678',
+                  required: false,
+                },
+                controlProp: {
+                  allowClear: true,
+                  bordered: true,
+                  disabled: false,
+                  mode: null,
+                  size: 'middle',
+                  virtual: true,
+                },
+                type: 'select',
+                id: '1714997239678',
+              },
+            ],
+          ],
+        },
+        id: '1714997236070',
+      },
+      {
+        type: 'card',
+        controlProp: {
+          title: '',
+          bordered: true,
+          hoverable: false,
+          children: [
+            {
+              formItemProp: {
+                label: 'field9901',
+                name: 'field9901',
+                required: false,
+              },
+              controlProp: {
+                allowClear: true,
+                bordered: true,
+                disabled: false,
+                maxlength: null,
+                size: 'middle',
+              },
+              type: 'input',
+              id: '1714997359901',
+            },
+          ],
+        },
+        id: '1714997358477',
+      },
+      {
+        formItemProp: {
+          label: 'field6501',
+          name: 'field6501',
+          required: false,
+        },
+        controlProp: {
+          allowClear: true,
+          bordered: true,
+          disabled: false,
+          maxlength: null,
+          size: 'middle',
+        },
+        type: 'input',
+        id: '1714997516501',
+      },
+      {
+        formItemProp: {
+          label: 'field7214',
+          name: 'field7214',
+          required: false,
+        },
+        controlProp: {
+          allowClear: true,
+          bordered: true,
+          disabled: false,
+          mode: null,
+          size: 'middle',
+          virtual: true,
+        },
+        type: 'select',
+        id: '1714997517214',
+      },
+      {
+        formItemProp: {
+          label: 'field7901',
+          name: 'field7901',
+          required: false,
+        },
+        controlProp: {
+          disabled: false,
+          size: 'middle',
+          bordered: true,
+          controls: true,
+          max: null,
+          min: null,
+          precision: null,
+          step: 1,
+        },
+        type: 'number',
+        id: '1714997517901',
+      },
+      {
+        formItemProp: {
+          label: 'field8478',
+          name: 'field8478',
+          required: false,
+        },
+        controlProp: {
+          disabled: false,
+          size: 'middle',
+          buttonStyle: 'solid',
+          optionType: 'button',
+        },
+        type: 'radio',
+        id: '1714997518478',
+      },
+      {
+        formItemProp: {
+          label: 'field9108',
+          name: 'field9108',
+          required: false,
+        },
+        controlProp: {
+          disabled: false,
+        },
+        type: 'checkbox',
+        id: '1714997519108',
+      },
+    ];
+    const data = await this.templateService.renderTemplateFromFile(
+      path.join(__dirname, '../../../', './static/template/form.ejs'),
+      {
+        list: test,
+        path: path.join(__dirname, '../../../', './static/template/'),
+      },
+    );
+    const text = await this.formatService.formatCode(data);
+    console.log(text);
+    return text;
   }
 }

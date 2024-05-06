@@ -1,0 +1,70 @@
+<% list.forEach((item)=>{ %>
+    <% if(['input','select'].includes(item.type)) {%>
+        <a-form-item
+        label="<%= item.formItemProp?.label %>"
+        name="<%= item.formItemProp?.name %>"
+        <%= item.formItemProp?.required ? 'required' : '' %>
+        >
+            <% if(item.type == 'input'){ %>
+            <a-input 
+                v-model="formData.<%= item.formItemProp?.name %>" 
+                <%= item.controlProp?.allowClear ? 'allowClear' : '' %>
+                <%= item.controlProp?.bordered ? 'bordered' : '' %>
+                <%= item.controlProp?.disabled ? 'disabled' : '' %>
+                <%= item.controlProp?.maxLength ? 'maxLength='+item.controlProp?.maxLength : '' %>
+                <%= item.controlProp?.size != 'middle' ? 'size='+item.controlProp?.size : ''  %>   
+                />
+            <% }else if(item.type == 'select'){ %>
+                <a-select
+                v-model="formData.<%= item.formItemProp?.name %>" 
+                <%= item.controlProp?.allowClear ? 'allowClear' : '' %>
+                <%= item.controlProp?.bordered ? 'bordered' : '' %>
+                <%= item.controlProp?.disabled ? 'disabled' : '' %>
+                <%= item.controlProp?.size !='middle' ? 'size=' +item.controlProp?.size : '' %>
+                <%= item.controlProp?.virtual ? 'virtual' : '' %>
+                <%= item.controlProp?.mode ? 'mode=' +item.controlProp?.mode : '' %>
+                :options="<%= item.formItemProp?.name + 'Options' %>"
+                />
+            <% }else if(item.type == 'switch'){ %>
+                <a-switch 
+                v-model="formData.<%= item.formItemProp?.name %>" 
+                <%= item.controlProp?.size !='middle' ? 'size=' +item.controlProp?.size : '' %>
+                <%= item.controlProp?.disabled ? 'disabled' : '' %>
+                />
+            <% }else if(item.type == 'radio'){ %>
+                <a-radio-group 
+                v-model="formData.<%= item.formItemProp?.name %>" 
+                <%= item.controlProp?.disabled ? 'disabled' : '' %>
+                <%= item.controlProp?.optionType !='default' ? 'option-type=' +item.controlProp?.optionType : '' %>
+                <%= item.controlProp?.buttonStyle !='outline' ? 'button-style=' +item.controlProp?.buttonStyle : '' %>
+                :options="<%= item.formItemProp?.name + 'Options' %>"
+                />
+
+            <% }else if(item.type=='checkbox'){ %>
+                <a-checkbox-group 
+                v-model="formData.<%= item.formItemProp?.name %>"
+                <%= item.controlProp?.disabled ? 'disabled' : '' %>
+                <%= item.controlProp?.optionType !='default' ? 'option-type=' +item.controlProp?.optionType : '' %>
+                :options="<%= item.formItemProp?.name + 'Options' %>"
+                />
+            <% }else if(item.type=='date'){ %>
+                <a-date-picker 
+                v-model="formData.<%= item.formItemProp?.name %>"
+                <%= item.controlProp?.bordered ? 'bordered' : '' %>
+                <%= item.controlProp?.disabled ? 'disabled' : '' %>
+                <%= item.controlProp?.size !='middle' ? 'size=' +item.controlProp?.size : '' %>
+                format="<%= item.formItemProp?.format %>"
+                value-format="<%= item.formItemProp?.valueFormat %>"
+                mode="<%= item.formItemProp?.mode %>"
+                picker="<%= item.formItemProp?.picker %>"
+                />
+            <% }else if(item.type=='number'){ %>
+            <% } %>
+        </a-form-item>
+    <%}else if(item.type == 'grid'){%>
+        <%- include(path+'/grid',{data:item.controlProp,path:path}) %>
+    <% } else if(item.type == 'card'){%>
+        <%- include(path+'/card',{data:item.controlProp,path:path}) %>
+    <% }%>
+<% }) %>
+

@@ -11,6 +11,7 @@ import { FormService } from './form.service';
 import { CreateFormDto } from './dto/create-form.dto';
 import { UpdateFormDto } from './dto/update-form.dto';
 import PaginationDto from 'src/common/dto/pagination.dto';
+import { Public } from 'src/public/public.decorator';
 @Controller('form')
 export class FormController {
   constructor(private readonly formService: FormService) {}
@@ -38,5 +39,10 @@ export class FormController {
   @Get('remove')
   remove(@Query('id') id: string) {
     return this.formService.remove(id);
+  }
+  @Public()
+  @Get('template')
+  getTemplate() {
+    return this.formService.getTemplate();
   }
 }

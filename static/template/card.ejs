@@ -1,0 +1,7 @@
+<a-card 
+title="<%= data.gutter %>" 
+<%= data?.bordered ? 'bordered' : '' %>
+<%= data?.hoverable ? 'hoverable' : '' %>
+>
+    <%- include(path+'/formItem',{list:data.children,path}) %>
+</a-card>
