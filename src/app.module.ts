@@ -14,6 +14,7 @@ import * as path from 'path';
 import { TransformInterceptor } from './common/interceptor/transform/transform.interceptor';
 import { RoleModule } from './system/role/role.module';
 import { RequestModule } from './system/request/request.module';
+import { FormModule } from './system/form/form.module';
 const env = process.env.NODE_ENV == 'production' ? 'prod' : 'dev';
 @Module({
   imports: [
@@ -53,6 +54,7 @@ const env = process.env.NODE_ENV == 'production' ? 'prod' : 'dev';
     DictModule,
     RoleModule,
     RequestModule,
+    FormModule,
   ],
   controllers: [AppController],
   providers: [
