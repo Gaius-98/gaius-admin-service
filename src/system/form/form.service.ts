@@ -20,9 +20,9 @@ export class FormService {
     private formatService: FormatService,
   ) {}
   async create(createFormDto: CreateFormDto) {
-    const dict = await this.formRepository.create(createFormDto);
+    const form = await this.formRepository.create(createFormDto);
     try {
-      await this.formRepository.save(dict);
+      await this.formRepository.save(form);
       return '添加成功';
     } catch (error) {
       throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -78,171 +78,16 @@ export class FormService {
     await this.formRepository.remove(form);
     return `删除表单成功`;
   }
-  async getTemplate() {
-    const test = [
-      {
-        type: 'grid',
-        controlProp: {
-          gutter: 0,
-          colNumber: 2,
-          children: [
-            [
-              {
-                formItemProp: {
-                  label: 'field8809',
-                  name: 'field8809',
-                  required: false,
-                },
-                controlProp: {
-                  allowClear: true,
-                  bordered: true,
-                  disabled: false,
-                  maxlength: null,
-                  size: 'middle',
-                },
-                type: 'input',
-                id: '1714997238809',
-              },
-            ],
-            [
-              {
-                formItemProp: {
-                  label: 'field9678',
-                  name: 'field9678',
-                  required: false,
-                },
-                controlProp: {
-                  allowClear: true,
-                  bordered: true,
-                  disabled: false,
-                  mode: null,
-                  size: 'middle',
-                  virtual: true,
-                },
-                type: 'select',
-                id: '1714997239678',
-              },
-            ],
-          ],
-        },
-        id: '1714997236070',
-      },
-      {
-        type: 'card',
-        controlProp: {
-          title: '',
-          bordered: true,
-          hoverable: false,
-          children: [
-            {
-              formItemProp: {
-                label: 'field9901',
-                name: 'field9901',
-                required: false,
-              },
-              controlProp: {
-                allowClear: true,
-                bordered: true,
-                disabled: false,
-                maxlength: null,
-                size: 'middle',
-              },
-              type: 'input',
-              id: '1714997359901',
-            },
-          ],
-        },
-        id: '1714997358477',
-      },
-      {
-        formItemProp: {
-          label: 'field6501',
-          name: 'field6501',
-          required: false,
-        },
-        controlProp: {
-          allowClear: true,
-          bordered: true,
-          disabled: false,
-          maxlength: null,
-          size: 'middle',
-        },
-        type: 'input',
-        id: '1714997516501',
-      },
-      {
-        formItemProp: {
-          label: 'field7214',
-          name: 'field7214',
-          required: false,
-        },
-        controlProp: {
-          allowClear: true,
-          bordered: true,
-          disabled: false,
-          mode: null,
-          size: 'middle',
-          virtual: true,
-        },
-        type: 'select',
-        id: '1714997517214',
-      },
-      {
-        formItemProp: {
-          label: 'field7901',
-          name: 'field7901',
-          required: false,
-        },
-        controlProp: {
-          disabled: false,
-          size: 'middle',
-          bordered: true,
-          controls: true,
-          max: null,
-          min: null,
-          precision: null,
-          step: 1,
-        },
-        type: 'number',
-        id: '1714997517901',
-      },
-      {
-        formItemProp: {
-          label: 'field8478',
-          name: 'field8478',
-          required: false,
-        },
-        controlProp: {
-          disabled: false,
-          size: 'middle',
-          buttonStyle: 'solid',
-          optionType: 'button',
-        },
-        type: 'radio',
-        id: '1714997518478',
-      },
-      {
-        formItemProp: {
-          label: 'field9108',
-          name: 'field9108',
-          required: false,
-        },
-        controlProp: {
-          disabled: false,
-        },
-        type: 'checkbox',
-        id: '1714997519108',
-      },
-    ];
+  async getTemplate(id: string) {
+    const { schema } = await this.findOne(id);
     const data = await this.templateService.renderTemplateFromFile(
       path.join(__dirname, '../../../', './static/template/form.ejs'),
       {
-        list: test,
+        list: schema,
         path: path.join(__dirname, '../../../', './static/template/'),
       },
     );
     const text = await this.formatService.formatCode(data);
-    console.log(text);
     return text;
   }
 }

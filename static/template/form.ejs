@@ -4,7 +4,51 @@
 </template>
 
 <script lang="ts" setup>
+import { ref,onMounted } from 'vue'
 import axios from 'axios'
+<% 
+    var arr = []
+    function deepDict(data) {
+        data.forEach(item => {
+            if (['card', 'grid'].includes(item.type)) {
+                if (item.type == 'card') {
+                    deepDict(item.controlProp.children)
+                } else if (item.type == 'grid') {
+                    item.controlProp.children.map(e => {
+                        deepDict(e)
+                    })
+                }
+            } else if (item?.controlProp.dict) {
+                arr.push(item.controlProp.dict)
+            }
+        })
+    }
+%>
+<%= deepDict(list) %>
+const dictKeys = ref([
+    <% arr.forEach((item)=>{ %>
+        '<%= item %>',
+    <%}) %>
+])
+const dict = ref({})
+const baseUrl = 'http://120.26.161.36:8899/'
+const getDicts = () =>{
+    axios.get('dict/dictByType',{
+        baseURL: baseUrl,
+        params:{
+            dictType: dictKeys.value
+        }
+    }).then(res=>{
+        const { code, data, msg } = res.data
+        dictKeys.value.map(key=>{
+            dict.value[key] = data[key]
+        })
+    })
+}
+
+onMounted(()=>{
+    getDicts()
+})
 </script>
 
 <style scoped lang="scss"></style>

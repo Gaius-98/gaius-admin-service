@@ -42,7 +42,7 @@ export class FormController {
   }
   @Public()
   @Get('template')
-  getTemplate() {
-    return this.formService.getTemplate();
+  getTemplate(@Query('id') id: string) {
+    return this.formService.getTemplate(id);
   }
 }

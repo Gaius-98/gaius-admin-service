@@ -23,7 +23,7 @@
                 <%= item.controlProp?.size !='middle' ? 'size=' +item.controlProp?.size : '' %>
                 <%= item.controlProp?.virtual ? 'virtual' : '' %>
                 <%= item.controlProp?.mode ? 'mode=' +item.controlProp?.mode : '' %>
-                :options="<%= item.formItemProp?.name + 'Options' %>"
+                :options="<%= item.controlProp?.dict ? 'dict.'+ item.controlProp?.dict : '[]'%>"
                 />
             <% }else if(item.type == 'switch'){ %>
                 <a-switch 
@@ -37,7 +37,7 @@
                 <%= item.controlProp?.disabled ? 'disabled' : '' %>
                 <%= item.controlProp?.optionType !='default' ? 'option-type=' +item.controlProp?.optionType : '' %>
                 <%= item.controlProp?.buttonStyle !='outline' ? 'button-style=' +item.controlProp?.buttonStyle : '' %>
-                :options="<%= item.formItemProp?.name + 'Options' %>"
+                :options="<%= item.controlProp?.dict ? 'dict.' + item.controlProp?.dict : '[]' %>"
                 />
 
             <% }else if(item.type=='checkbox'){ %>
@@ -45,7 +45,7 @@
                 v-model="formData.<%= item.formItemProp?.name %>"
                 <%= item.controlProp?.disabled ? 'disabled' : '' %>
                 <%= item.controlProp?.optionType !='default' ? 'option-type=' +item.controlProp?.optionType : '' %>
-                :options="<%= item.formItemProp?.name + 'Options' %>"
+                :options="<%= item.controlProp?.dict ? 'dict.' + item.controlProp?.dict : '[]' %>"
                 />
             <% }else if(item.type=='date'){ %>
                 <a-date-picker 
