@@ -90,7 +90,7 @@ export class DictService {
   async findByTypes(dictTypes: string[]) {
     try {
       const dictList = await this.dictRepository.find({
-        select: ['label', 'id', 'dictType'],
+        select: ['label', 'dictType', 'value'],
         where: {
           dictType: In(dictTypes),
           status: 1,
