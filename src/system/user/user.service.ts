@@ -47,7 +47,7 @@ export class UserService {
           'createTime',
           'id',
         ],
-        skip: pageNumber - 1,
+        skip: (pageNumber - 1) * pageSize,
         take: pageSize,
         where: {
           username: Like(`%${keyword}%`),

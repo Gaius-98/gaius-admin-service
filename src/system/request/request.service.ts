@@ -41,7 +41,7 @@ export class RequestService {
         order: {
           createTime: 'ASC',
         },
-        skip: pageNumber - 1,
+        skip: (pageNumber - 1) * pageSize,
         take: pageSize,
       });
       return {

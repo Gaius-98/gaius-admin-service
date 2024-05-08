@@ -28,7 +28,7 @@ export class DictService {
     try {
       const { keyword, dictType, pageNumber, pageSize } = params;
       const dictList = await this.dictRepository.findAndCount({
-        skip: pageNumber - 1,
+        skip: (pageNumber - 1) * pageSize,
         take: pageSize,
         where: {
           label: Like(`%${keyword}%`),

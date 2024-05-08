@@ -33,7 +33,7 @@ export class FormService {
     try {
       const { keyword, pageNumber, pageSize } = params;
       const formList = await this.formRepository.findAndCount({
-        skip: pageNumber - 1,
+        skip: (pageNumber - 1) * pageSize,
         take: pageSize,
         where: {
           name: Like(`%${keyword}%`),
