@@ -31,7 +31,7 @@ export class FormController {
     return this.formService.findOne(id);
   }
 
-  @Patch('update')
+  @Post('update')
   update(@Body() updateFormDto: UpdateFormDto) {
     return this.formService.update(updateFormDto);
   }
