@@ -27,7 +27,7 @@ export class FormController {
   }
 
   @Get('detail')
-  findOne(@Param('id') id: string) {
+  findOne(@Query('id') id: string) {
     return this.formService.findOne(id);
   }
 
