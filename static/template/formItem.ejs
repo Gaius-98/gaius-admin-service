@@ -59,6 +59,17 @@
                 picker="<%= item.formItemProp?.picker %>"
                 />
             <% }else if(item.type=='number'){ %>
+                <a-input-number 
+                v-model="formData.<%= item.formItemProp?.name %>" 
+                <%= item.controlProp?.controls ? 'controls' : '' %>
+                <%= item.controlProp?.bordered ? 'bordered' : '' %>
+                <%= item.controlProp?.disabled ? 'disabled' : '' %>
+                <%= item.controlProp?.max ? 'max='+item.controlProp?.max : '' %>
+                <%= item.controlProp?.min ? 'min=' +item.controlProp?.min : '' %>
+                <%= item.controlProp?.step ? 'step=' +item.controlProp?.step : '' %>
+                <%= item.controlProp?.precision ? 'max=' +item.controlProp?.precision : '' %>
+                <%= item.controlProp?.size != 'middle' ? 'size='+item.controlProp?.size : ''  %>   
+                />
             <% } %>
         </a-form-item>
     <%}else if(item.type == 'grid'){%>
