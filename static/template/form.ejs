@@ -1,5 +1,7 @@
 <template>
-<%- include(path+'/formItem',{list:list,path:path}) %>
+<a-form :model="formData" ref="formRef">
+    <%- include(path+'/formItem',{list:list,path:path}) %>
+</a-form>
 
 </template>
 
@@ -30,7 +32,9 @@ const dictKeys = ref([
         '<%= item %>',
     <%}) %>
 ])
+const formData = ref({})
 const dict = ref({})
+const formRef = ref()
 const baseUrl = 'http://120.26.161.36:8899/'
 const getDicts = () =>{
     axios.get('dict/dictByType',{
