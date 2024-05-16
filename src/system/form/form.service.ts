@@ -83,7 +83,8 @@ export class FormService {
     const data = await this.templateService.renderTemplateFromFile(
       path.join(__dirname, '../../../', './static/template/form.ejs'),
       {
-        list: schema,
+        list: schema.formCfgItemList,
+        cfg: schema.formConfig,
         path: path.join(__dirname, '../../../', './static/template/'),
       },
     );

@@ -1,5 +1,11 @@
 <template>
-<a-form :model="formData" ref="formRef">
+<a-form 
+:model="formData" 
+ref="formRef" 
+<%= cfg.labelAlign?  'labelAlign='+cfg.labelAlign : ''  %> 
+<%= cfg.labelCol?.offset 'offset=' +cfg.labelCol?.offset : '' %>
+<%= cfg.labelCol?.span 'span=' +cfg.labelCol?.span : '' %>
+>
     <%- include(path+'/formItem',{list:list,path:path}) %>
 </a-form>
 
