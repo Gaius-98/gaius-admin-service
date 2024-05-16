@@ -84,12 +84,14 @@ export class UserService {
     if (!user) throw new ApiException('用户名不存在', ApiErrorCode.ERROR_OTHER);
     return user;
   }
-  async getUserInfo(username: string) {
+  async getDetail(username: string) {
     const user = await this.findOne(username);
     if (!user) throw new ApiException('用户名不存在', ApiErrorCode.ERROR_OTHER);
     delete user.password;
+    delete user.salt;
     return user;
   }
+
   async update(updateUserDto: UpdateUserDto) {
     try {
       return await this.userRepository.save(updateUserDto);
