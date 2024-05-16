@@ -3,5 +3,5 @@ title="<%= data.controlProp.title %>"
 <%= data?.controlProp.bordered ? 'bordered' : '' %>
 <%= data?.controlProp.hoverable ? 'hoverable' : '' %>
 >
-    <%- include(path+'/formItem',{list:data.controlProp.children,path}) %>
+    <%- include(path+'/formItem',{list:data.controlProp.children,path,cfg:{}}) %>
 </a-card>

@@ -3,7 +3,7 @@
 >
     <% data.controlProp.children.forEach((item)=>{ %>
         <a-col :span="<%=  24/data.controlProp.colNumber %>">
-            <%- include(path+'/formItem',{list:item,path}) %>
+            <%- include(path+'/formItem',{list:item,path,cfg:{}}) %>
         </a-col>
     <% }) %>
 </a-row>

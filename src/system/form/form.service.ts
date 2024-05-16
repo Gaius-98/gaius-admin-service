@@ -79,16 +79,20 @@ export class FormService {
     return `删除表单成功`;
   }
   async getTemplate(id: string) {
-    const { schema } = await this.findOne(id);
-    const data = await this.templateService.renderTemplateFromFile(
-      path.join(__dirname, '../../../', './static/template/form.ejs'),
-      {
-        list: schema.formCfgItemList,
-        cfg: schema.formConfig,
-        path: path.join(__dirname, '../../../', './static/template/'),
-      },
-    );
-    const text = await this.formatService.formatCode(data);
-    return text;
+    try {
+      const { schema } = await this.findOne(id);
+      const data = await this.templateService.renderTemplateFromFile(
+        path.join(__dirname, '../../../', './static/template/form.ejs'),
+        {
+          list: schema.formCfgItemList,
+          path: path.join(__dirname, '../../../', './static/template/'),
+          cfg: schema.formConfig,
+        },
+      );
+      const text = await this.formatService.formatCode(data);
+      return text;
+    } catch (error) {
+      throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
   }
 }
