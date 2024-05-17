@@ -1,5 +1,5 @@
 <% list.forEach((item)=>{ %>
-    <% if(['input','select'].includes(item.type)) {%>
+    <% if(!['grid','card'].includes(item.type)) {%>
         <a-form-item
         label="<%= item.formItemProp?.label %>"
         name="<%= item.formItemProp?.name %>"
