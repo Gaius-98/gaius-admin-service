@@ -1,0 +1,13 @@
+<a-collapse 
+title="<%= data.controlProp.title %>" 
+<%= data?.controlProp.bordered ? 'bordered' : '' %>
+<%= data?.controlProp.ghost ? 'ghost' : '' %>
+>
+    <a-collapse-panel 
+     key="key" 
+     header="<%= data.controlProp.title %>" 
+    <%= data?.controlProp.showArrow ? 'showArrow' : '' %>
+     >
+        <%- include(path+'/formItem',{list:data.controlProp.children,path}) %>
+    </a-collapse-panel>
+</a-collapse>

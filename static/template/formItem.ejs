@@ -1,5 +1,5 @@
 <% list.forEach((item)=>{ %>
-    <% if(!['grid','card'].includes(item.type)) {%>
+    <% if(!['grid','card','collapse','divider'].includes(item.type)) {%>
         <a-form-item
         label="<%= item.formItemProp?.label %>"
         name="<%= item.formItemProp?.name %>"
@@ -70,12 +70,24 @@
                 <%= item.controlProp?.precision ? 'max=' +item.controlProp?.precision : '' %>
                 <%= item.controlProp?.size != 'middle' ? 'size='+item.controlProp?.size : ''  %>   
                 />
-            <% } %>
+
+            <% }%> 
         </a-form-item>
     <%}else if(item.type == 'grid'){%>
         <%- include(path+'/grid',{data:item,path:path}) %>
     <% } else if(item.type == 'card'){%>
         <%- include(path+'/card',{data:item,path:path}) %>
-    <% }%>
+    <% } else if (item.type == 'collapse'){%>
+        <%- include(path+'/collapse',{data:item,path:path}) %>
+    <% }else if(item.type == 'divider'){ %>
+        <a-divider 
+        <%= item.controlProp?.dashed ? 'dashed' : '' %>
+        <%= item.controlProp?.orientation !='center' ? 'orientation=' +item.controlProp?.orientation : '' %>
+        <%= item.controlProp?.plain ? 'plain' : '' %>
+        <%= item.controlProp?.type !='horizontal' ? 'type=' +item.controlProp?.type : '' %>
+        >
+        <%= item.controlProp?.title !='horizontal' ? item.controlProp?.title : '' %>   
+        </a-divider>
+    <% } %>
 <% }) %>
 
