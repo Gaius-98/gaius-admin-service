@@ -4,6 +4,7 @@ import {
   Post,
   Body,
   Patch,
+  Query,
   Param,
   Delete,
 } from '@nestjs/common';
@@ -12,6 +13,7 @@ import { CreateUploadDto } from './dto/create-upload.dto';
 import { UpdateUploadDto } from './dto/update-upload.dto';
 import { UseInterceptors, UploadedFile } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
+import PaginationDto from 'src/common/dto/pagination.dto';
 @Controller('upload')
 export class UploadController {
   constructor(private readonly uploadService: UploadService) {}
@@ -23,13 +25,13 @@ export class UploadController {
     return this.uploadService.create(file);
   }
 
-  @Get()
-  findAll() {
-    return this.uploadService.findAll();
+  @Get('list')
+  findAll(@Query() params: PaginationDto) {
+    return this.uploadService.findAll(params);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.uploadService.remove(+id);
+  @Get('remove')
+  remove(@Query('id') id: string) {
+    return this.uploadService.remove(id);
   }
 }
