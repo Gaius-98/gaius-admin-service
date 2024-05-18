@@ -16,6 +16,7 @@ import { RoleModule } from './system/role/role.module';
 import { RequestModule } from './system/request/request.module';
 import { FormModule } from './system/form/form.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
+import { UploadModule } from './system/upload/upload.module';
 const env = process.env.NODE_ENV == 'production' ? 'prod' : 'dev';
 @Module({
   imports: [
@@ -60,6 +61,7 @@ const env = process.env.NODE_ENV == 'production' ? 'prod' : 'dev';
     RoleModule,
     RequestModule,
     FormModule,
+    UploadModule,
   ],
   controllers: [AppController],
   providers: [

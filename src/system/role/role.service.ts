@@ -27,9 +27,9 @@ export class RoleService {
     }
   }
 
-  async findAll(parmas: PaginationDto) {
+  async findAll(params: PaginationDto) {
     try {
-      const { keyword, pageNumber, pageSize } = parmas;
+      const { keyword, pageNumber, pageSize } = params;
       const list = await this.roleRepository.findAndCount({
         select: ['id', 'roleId', 'roleName', 'desc', 'createTime', 'status'],
         where: {
