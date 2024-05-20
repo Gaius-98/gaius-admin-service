@@ -4,9 +4,11 @@ export class Upload {
   @PrimaryGeneratedColumn('uuid')
   id: string;
   @Column({ name: 'file_name' })
-  fileName: string;
+  filename: string;
   @Column({ name: 'original_name' })
-  originalName: string;
+  originalname: string;
+  @Column({ name: 'path' })
+  path: string;
   @Column({ name: 'size' })
   size: number;
   @Column({

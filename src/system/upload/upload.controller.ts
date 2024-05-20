@@ -21,7 +21,6 @@ export class UploadController {
   @Post('images')
   @UseInterceptors(FileInterceptor('file'))
   create(@UploadedFile() file) {
-    console.log(file);
     return this.uploadService.create(file);
   }
 

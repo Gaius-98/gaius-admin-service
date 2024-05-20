@@ -17,6 +17,8 @@ export class UploadService {
     private uploadRepository: Repository<Upload>,
   ) {}
   async create(createFileDto: CreateUploadDto) {
+    createFileDto.path = `uploads/${createFileDto.filename}`;
+    createFileDto.originalname = decodeURIComponent(createFileDto.originalname);
     const file = await this.uploadRepository.create(createFileDto);
     try {
       await this.uploadRepository.save(file);
@@ -30,9 +32,16 @@ export class UploadService {
     try {
       const { keyword, pageNumber, pageSize } = params;
       const list = await this.uploadRepository.findAndCount({
-        select: ['id', 'createTime', 'fileName', 'originalName', 'size'],
+        select: [
+          'id',
+          'createTime',
+          'filename',
+          'originalname',
+          'size',
+          'path',
+        ],
         where: {
-          originalName: Like(`%${keyword}%`),
+          originalname: Like(`%${keyword}%`),
         },
         order: {
           createTime: 'ASC',
@@ -57,7 +66,7 @@ export class UploadService {
       throw new ApiException(`资源不存在,删除失败`, ApiErrorCode.ERROR_OTHER);
     await this.uploadRepository.remove(file);
     await this.deleteFile(
-      path.join(__dirname, '../../', `./uploads/${file.fileName}`),
+      path.join(__dirname, '../../', `./uploads/${file.filename}`),
     );
     return `删除资源成功`;
   }
