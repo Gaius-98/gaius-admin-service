@@ -12,7 +12,7 @@ import { Upload } from './entities/upload.entity';
   imports: [
     MulterModule.register({
       storage: diskStorage({
-        destination: join(__dirname, '../../uploads'),
+        destination: join(__dirname, '../../../', './uploads/'),
         filename: (req, file, cb) => {
           const randomName = Array(32)
             .fill(null)
