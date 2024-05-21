@@ -65,7 +65,7 @@ export class UploadService {
       throw new ApiException(`资源不存在,删除失败`, ApiErrorCode.ERROR_OTHER);
     await this.uploadRepository.remove(file);
     await this.deleteFile(
-      path.join(__dirname, '../../', `./uploads/${file.filename}`),
+      path.join(__dirname, '../../../', `./uploads/${file.filename}`),
     );
     return `删除资源成功`;
   }
