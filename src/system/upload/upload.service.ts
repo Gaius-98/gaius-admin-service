@@ -21,8 +21,7 @@ export class UploadService {
     createFileDto.originalname = decodeURIComponent(createFileDto.originalname);
     const file = await this.uploadRepository.create(createFileDto);
     try {
-      await this.uploadRepository.save(file);
-      return '添加成功';
+      return await this.uploadRepository.save(file);
     } catch (error) {
       throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
