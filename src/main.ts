@@ -11,7 +11,7 @@ async function bootstrap() {
 
   app.use(cookieParser());
   const port = process.env.PORT || 3000;
-  app.useStaticAssets(join(__dirname, 'uploads'), {
+  app.useStaticAssets(join(__dirname, '../', 'uploads'), {
     prefix: '/uploads',
   });
   await app.listen(port);
