@@ -52,7 +52,19 @@ export class RequestService {
       throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
-
+  async getAll() {
+    try {
+      const list = await this.requestRepository.find({
+        select: ['apiName', 'id'],
+        order: {
+          createTime: 'ASC',
+        },
+      });
+      return list;
+    } catch (error) {
+      throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
   async findOne(id: string) {
     try {
       const request = await this.requestRepository.findOne({
@@ -84,7 +96,7 @@ export class RequestService {
     return `删除API成功`;
   }
 
-  async proxy(id: string) {
+  async proxy(id: string, paramsData?: Obj) {
     const request = await this.requestRepository.findOne({
       where: { id, status: 1 },
     });
@@ -94,8 +106,8 @@ export class RequestService {
     const requestInfo = {
       url,
       method,
-      params: this.transform(params),
-      data: this.transform(body),
+      params: this.transform(params, paramsData),
+      data: this.transform(body, paramsData),
       headers: this.transform(headers),
     };
     Reflect.deleteProperty(requestInfo, method == 'get' ? 'data' : 'params');
@@ -106,13 +118,23 @@ export class RequestService {
       throw new ApiException(error, ApiErrorCode.ERROR_OTHER);
     }
   }
-  transform(data: ParamsItem[]): Obj {
+  transform(data: ParamsItem[], paramsData?: Obj): Obj {
     const obj: Obj = {};
     data
       .filter((e) => !!e.key)
       .map((item) => {
-        obj[item.key] = item.value;
+        if (paramsData) {
+          obj[item.key] = this.getDeepValue(paramsData, item.var) || item.value;
+        } else {
+          obj[item.key] = item.value;
+        }
       });
     return obj;
   }
+  getDeepValue = (obj: Obj, path: string) => {
+    const paths = path.split('.');
+    return paths.reduce((pre, cur) => {
+      return pre[cur];
+    }, obj) as any;
+  };
 }

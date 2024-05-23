@@ -13,6 +13,7 @@ import { CreateRequestDto } from './dto/create-request.dto';
 import { UpdateRequestDto } from './dto/update-request.dto';
 import { SearchRequestDto } from './dto/search-request.dto';
 import { Public } from 'src/public/public.decorator';
+import { Obj } from './model/IRequest';
 @Controller('request')
 export class RequestController {
   constructor(private readonly requestService: RequestService) {}
@@ -26,7 +27,10 @@ export class RequestController {
   findAll(@Query() params: SearchRequestDto) {
     return this.requestService.findAll(params);
   }
-
+  @Get('dict')
+  getAll() {
+    return this.requestService.getAll();
+  }
   @Get('detail')
   findOne(@Query('id') id: string) {
     return this.requestService.findOne(id);
@@ -43,7 +47,7 @@ export class RequestController {
   }
   @Public()
   @Get('proxy')
-  proxy(@Query('id') id: string) {
-    return this.requestService.proxy(id);
+  proxy(@Query('id') id: string, @Query('paramsData') paramsData?: Obj) {
+    return this.requestService.proxy(id, paramsData);
   }
 }
