@@ -25,7 +25,10 @@ export class FormController {
   findAll(@Query() params: PaginationDto) {
     return this.formService.findAll(params);
   }
-
+  @Get('dict')
+  getAll() {
+    return this.formService.getAll();
+  }
   @Get('detail')
   findOne(@Query('id') id: string) {
     return this.formService.findOne(id);

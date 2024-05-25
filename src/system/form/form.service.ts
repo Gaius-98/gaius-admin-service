@@ -50,6 +50,19 @@ export class FormService {
       throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
+  async getAll() {
+    try {
+      const list = await this.formRepository.find({
+        select: ['name', 'id'],
+        order: {
+          createTime: 'ASC',
+        },
+      });
+      return list;
+    } catch (error) {
+      throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
 
   async findOne(id: string) {
     const form = await this.formRepository.findOne({
