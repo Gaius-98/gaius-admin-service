@@ -7,5 +7,4 @@ export class CreateTableDto {
   global: any;
   dataSource: any;
   variablePool: any[];
-  img: string;
 }

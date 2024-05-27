@@ -15,8 +15,6 @@ export class Table {
   dataSource: any;
   @Column({ type: 'json' })
   variablePool: any;
-  @Column({ type: 'text' })
-  img: string;
   @Column({
     type: 'timestamp',
     default: () => 'CURRENT_TIMESTAMP',
