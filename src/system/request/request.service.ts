@@ -39,7 +39,7 @@ export class RequestService {
           url: Like(`%${url}%`),
         },
         order: {
-          createTime: 'ASC',
+          createTime: 'DESC',
         },
         skip: (pageNumber - 1) * pageSize,
         take: pageSize,
@@ -57,7 +57,7 @@ export class RequestService {
       const list = await this.requestRepository.find({
         select: ['apiName', 'id'],
         order: {
-          createTime: 'ASC',
+          createTime: 'DESC',
         },
       });
       return list;

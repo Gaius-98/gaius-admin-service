@@ -43,7 +43,7 @@ export class UploadService {
           originalname: Like(`%${keyword}%`),
         },
         order: {
-          createTime: 'ASC',
+          createTime: 'DESC',
         },
         skip: (pageNumber - 1) * pageSize,
         take: pageSize,

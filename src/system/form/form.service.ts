@@ -39,7 +39,7 @@ export class FormService {
           name: Like(`%${keyword}%`),
         },
         order: {
-          createTime: 'ASC',
+          createTime: 'DESC',
         },
       });
       return {
@@ -55,7 +55,7 @@ export class FormService {
       const list = await this.formRepository.find({
         select: ['name', 'id'],
         order: {
-          createTime: 'ASC',
+          createTime: 'DESC',
         },
       });
       return list;

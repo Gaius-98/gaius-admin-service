@@ -53,7 +53,7 @@ export class UserService {
           username: Like(`%${keyword}%`),
         },
         order: {
-          createTime: 'ASC',
+          createTime: 'DESC',
         },
       });
       return {

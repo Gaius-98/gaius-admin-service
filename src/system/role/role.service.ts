@@ -36,7 +36,7 @@ export class RoleService {
           roleName: Like(`%${keyword}%`),
         },
         order: {
-          createTime: 'ASC',
+          createTime: 'DESC',
         },
         skip: (pageNumber - 1) * pageSize,
         take: pageSize,
@@ -90,7 +90,7 @@ export class RoleService {
       const list = await this.roleRepository.find({
         select: ['roleId', 'roleName'],
         order: {
-          createTime: 'ASC',
+          createTime: 'DESC',
         },
         where: {
           status: 1,
