@@ -3,4 +3,5 @@ export class CreateAccessLogDto {
   url: string;
   location: string;
   createTime: string;
+  username: string;
 }

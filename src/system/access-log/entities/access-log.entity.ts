@@ -11,6 +11,8 @@ export class AccessLog {
   province: string;
   @Column()
   city: string;
+  @Column()
+  username: string;
   @Column({
     type: 'timestamp',
     default: () => 'CURRENT_TIMESTAMP',

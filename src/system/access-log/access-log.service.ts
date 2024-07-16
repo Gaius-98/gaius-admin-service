@@ -12,13 +12,14 @@ export class AccessLogService {
     @InjectRepository(AccessLog)
     private LogRepository: Repository<AccessLog>,
   ) {}
-  async create(ip: string, url: string) {
+  async create(ip: string, url: string, username: string) {
     const { province, city } = this.geoLocationService.getLocationByIp(ip);
     const logData = await this.LogRepository.create({
       ip,
       url,
       province,
       city,
+      username,
     });
     try {
       await this.LogRepository.save(logData);

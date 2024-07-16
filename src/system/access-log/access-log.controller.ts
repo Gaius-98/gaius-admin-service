@@ -8,6 +8,10 @@ export class AccessLogController {
   @Public()
   @Get('record')
   create(@Query('path') path: string, @Req() req: any) {
-    return this.accessLogService.create(this.accessLogService.getIp(req), path);
+    return this.accessLogService.create(
+      this.accessLogService.getIp(req),
+      path,
+      req.username,
+    );
   }
 }
