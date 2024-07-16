@@ -18,6 +18,7 @@ import { FormModule } from './system/form/form.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { UploadModule } from './system/upload/upload.module';
 import { TableModule } from './system/table/table.module';
+import { AccessLogModule } from './system/access-log/access-log.module';
 const env = process.env.NODE_ENV == 'production' ? 'prod' : 'dev';
 @Module({
   imports: [
@@ -64,6 +65,7 @@ const env = process.env.NODE_ENV == 'production' ? 'prod' : 'dev';
     FormModule,
     UploadModule,
     TableModule,
+    AccessLogModule,
   ],
   controllers: [AppController],
   providers: [

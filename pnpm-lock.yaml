@@ -46,6 +46,9 @@ dependencies:
   ejs:
     specifier: ^3.1.10
     version: 3.1.10
+  ip2region:
+    specifier: ^2.3.0
+    version: 2.3.0(@types/node@20.12.7)
   mysql:
     specifier: ^2.18.1
     version: 2.18.1
@@ -3247,6 +3250,14 @@ packages:
     resolution: {integrity: sha512-agE4QfB2Lkp9uICn7BAqoscw4SZP9kTE2hxiFI3jBPmXJfdqiahTbUuKGsMoN2GtqL9AxhYioAcVvgsb1HvRbA==}
     engines: {node: '>= 0.10'}
     dev: true
+
+  /ip2region@2.3.0(@types/node@20.12.7):
+    resolution: {integrity: sha512-zV5Xsadzrx9Ej6heoyhbXMsfGWWQ3C6bAIYStrHhw9kzLpGpVNlnAyRBxxPgxA1GNqr1Ti7oUxcWsMWNN3jZBg==}
+    peerDependencies:
+      '@types/node': '*'
+    dependencies:
+      '@types/node': 20.12.7
+    dev: false
 
   /ipaddr.js@1.9.1:
     resolution: {integrity: sha512-0KI/607xoxSToH7GjN1FfSbLoU0+btTicjsQSWQlh/hZykN8KpmMf7uYwPW3R+akZ6R/w18ZlXSHBYXiYUPO3g==}
