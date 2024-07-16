@@ -27,6 +27,17 @@ export class AccessLogService {
       console.log(error);
     }
   }
+  async getIpCount(startTime: string, endTime: string) {
+    const data = await this.LogRepository.createQueryBuilder('log')
+      .select('log.ip,count(log.ip) as count')
+      .where('log.createTime BETWEEN :startTime AND :endTime', {
+        startTime,
+        endTime,
+      })
+      .groupBy('log.ip')
+      .getRawMany();
+    return data;
+  }
   getIp(_http) {
     const ipStr =
       _http.headers['x-real-ip'] || _http.headers['x-forwarded-for'];

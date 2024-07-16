@@ -14,4 +14,11 @@ export class AccessLogController {
       req.username,
     );
   }
+  @Get('ip/count')
+  getIpCount(
+    @Query('startTime') startTime: string,
+    @Query('endTime') endTime: string,
+  ) {
+    return this.accessLogService.getIpCount(startTime, endTime);
+  }
 }
