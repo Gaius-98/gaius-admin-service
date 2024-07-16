@@ -34,6 +34,9 @@ export class AccessLogService {
         startTime,
         endTime,
       })
+      .andWhere('log.url = :url', {
+        url: '/home',
+      })
       .groupBy('log.ip')
       .getRawMany();
     return data;
