@@ -111,6 +111,19 @@ export class MenuService {
       throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
+  async findAllMenu() {
+    try {
+      const menuList = await this.menuRepository.find({
+        select: ['label', 'id', 'pid'],
+        order: {
+          sortNum: 'ASC',
+        },
+      });
+      return this.buildMenuTree(menuList as MenuItem[], null) as Menu[];
+    } catch (error) {
+      throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
   buildMenuTree(menuList: MenuItem[], parentId: string | null) {
     const tree: MenuItem[] = [];
     menuList

@@ -44,4 +44,9 @@ export class MenuController {
   getAllDirectory() {
     return this.menuService.findAllDirectory();
   }
+
+  @Get('all')
+  getAllMenu() {
+    return this.menuService.findAllMenu();
+  }
 }
