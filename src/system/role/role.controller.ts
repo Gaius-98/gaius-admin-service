@@ -32,7 +32,7 @@ export class RoleController {
     return this.roleService.remove(id);
   }
   @Get('dict')
-  get(){
-    return this.roleService.findRoleDict()
+  get() {
+    return this.roleService.findRoleDict();
   }
 }

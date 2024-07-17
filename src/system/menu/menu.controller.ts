@@ -7,6 +7,7 @@ import {
   Param,
   Delete,
   Query,
+  Req,
 } from '@nestjs/common';
 import { MenuService } from './menu.service';
 import { CreateMenuDto } from './dto/create-menu.dto';
@@ -20,10 +21,9 @@ export class MenuController {
   create(@Body() createMenuDto: CreateMenuDto) {
     return this.menuService.create(createMenuDto);
   }
-
   @Get('list')
-  findAll(@Query('keyword') keyword: string) {
-    return this.menuService.findAll(keyword);
+  findAll(@Query('keyword') keyword: string, @Req() req: any) {
+    return this.menuService.findAll(keyword, req.username);
   }
 
   @Get('detail')

@@ -6,6 +6,8 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Like, Repository } from 'typeorm';
 import { ApiException } from 'src/common/filter/http-exception/api.exception';
 import { ApiErrorCode } from 'src/common/model/IHttp';
+import { RoleService } from '../role/role.service';
+import { UserService } from '../user/user.service';
 interface MenuItem {
   id: string;
   label: string;
@@ -24,6 +26,8 @@ export class MenuService {
   constructor(
     @InjectRepository(Menu)
     private menuRepository: Repository<Menu>,
+    private roleService: RoleService,
+    private userService: UserService,
   ) {}
   async create(createMenuDto: CreateMenuDto) {
     const menu = await this.menuRepository.create(createMenuDto);
@@ -35,15 +39,24 @@ export class MenuService {
     }
   }
 
-  async findAll(keyword: string) {
+  async findAll(keyword: string, username: string) {
     try {
-      const menuList = await this.menuRepository.find({
+      const userInfo = await this.userService.findOne(username);
+      let roleList;
+      if (userInfo) {
+        roleList = await this.roleService.findOneByRoleId(userInfo.roleId);
+        roleList = roleList.roleValue;
+      }
+      let menuList = await this.menuRepository.find({
         where: {
           label: Like(`%${keyword}%`),
         },
         order: {
           sortNum: 'ASC',
         },
+      });
+      menuList = menuList.filter((menu) => {
+        return roleList.includes(menu.id);
       });
       if (keyword) {
         return menuList;

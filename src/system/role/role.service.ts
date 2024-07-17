@@ -63,7 +63,19 @@ export class RoleService {
       throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
-
+  async findOneByRoleId(roleId: string) {
+    try {
+      const role = await this.roleRepository.findOne({
+        where: {
+          roleId,
+        },
+      });
+      role.roleValue = JSON.parse(role.roleValue);
+      return await role;
+    } catch (error) {
+      throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
   async update(updateRoleDto: UpdateRoleDto) {
     try {
       const { roleValue } = updateRoleDto;
