@@ -29,13 +29,10 @@ export class AccessLogService {
   }
   async getIpCount(startTime: string, endTime: string) {
     const data = await this.LogRepository.createQueryBuilder('log')
-      .select('log.ip,count(log.ip) as count')
+      .select('log.ip,count(log.ip) as count,log.province,log.city')
       .where('log.createTime BETWEEN :startTime AND :endTime', {
         startTime,
         endTime,
-      })
-      .andWhere('log.url = :url', {
-        url: '/home',
       })
       .groupBy('log.ip')
       .getRawMany();
